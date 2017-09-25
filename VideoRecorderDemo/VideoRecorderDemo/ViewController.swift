@@ -27,6 +27,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    @IBAction func torchButtonClicked(_ sender: UIButton) {
+        recordManager?.switchTorchState()
+    }
+    
     @IBAction func cameraButtonClicked(_ sender: UIButton) {
         recordManager?.switchCameraPostion()
     }

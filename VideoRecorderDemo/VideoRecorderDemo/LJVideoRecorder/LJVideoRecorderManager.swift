@@ -34,6 +34,8 @@ class LJVideoRecorderManager: NSObject {
     fileprivate var movieFileOutput: AVCaptureMovieFileOutput
     fileprivate var previewLayer: AVCaptureVideoPreviewLayer?
     fileprivate var isCameraPositonBack = true
+    fileprivate var isTorchOpen = false
+//    fileprivate var isFlashOpen = false
     
     fileprivate var captureQueue: DispatchQueue = DispatchQueue(label: "com.lijinhu.video.recorder")
     
@@ -53,6 +55,13 @@ class LJVideoRecorderManager: NSObject {
 
 // MARK: - private methods
 extension LJVideoRecorderManager {
+    
+    fileprivate func addSyncLock(_ handler: (()->())?) {
+        objc_sync_enter(self)
+        handler?()
+        objc_sync_exit(self)
+    }
+    
     ///释放资源
     fileprivate func releaseCaptureSession() {
         captureSession.stopRunning()
@@ -131,7 +140,6 @@ extension LJVideoRecorderManager {
 
     }
     
-    
     /// 获取指定位置的摄像头
     fileprivate func cameraDevice(_ position: AVCaptureDevicePosition) ->AVCaptureDevice? {
         guard let cameraDeviceArray = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as? [AVCaptureDevice], cameraDeviceArray.count > 0 else {
@@ -144,6 +152,64 @@ extension LJVideoRecorderManager {
         }
         return nil
     }
+    
+    ///切换手电筒状态
+    fileprivate func changeToruchState() {
+        guard let backCameraDevice = backCameraDevice else {
+            return
+        }
+        
+        if isCameraPositonBack {
+            isTorchOpen = !isTorchOpen
+            if isTorchOpen {
+                if backCameraDevice.torchMode != .on {
+                    try? backCameraDevice.lockForConfiguration()
+                    backCameraDevice.torchMode = .on
+                    backCameraDevice.flashMode = .on
+                    backCameraDevice.unlockForConfiguration()
+                }
+            } else {
+                if backCameraDevice.torchMode != .off {
+                    try? backCameraDevice.lockForConfiguration()
+                    backCameraDevice.torchMode = .off
+                    backCameraDevice.flashMode = .off
+                    backCameraDevice.unlockForConfiguration()
+                }
+            }
+        }
+    }
+    
+    ///切换镜头
+    fileprivate func switchCamera() {
+        objc_sync_enter(self)
+        if isCameraPositonBack {
+            if isTorchOpen {
+                changeToruchState()
+            }
+        }
+        captureSession.stopRunning()
+        captureSession.removeInput(videoDeviceInput!)
+        isCameraPositonBack = !isCameraPositonBack
+        if isCameraPositonBack {
+            addBackCameraDeviceInput()
+        } else {
+            addFrontCameraDeviceInput()
+        }
+        captureSession.startRunning()
+        objc_sync_exit(self)
+    }
+
+    
+    /// 添加动画 for：镜头切换
+    fileprivate func addAnimationForCameraSwitch() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.y")
+        animation.toValue = Double.pi
+        animation.duration = 0.95
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = kCAFillModeForwards
+        previewLayer?.add(animation, forKey: nil)
+    }
 }
 
 
@@ -152,16 +218,21 @@ extension LJVideoRecorderManager {
     
     /// 开始预览
     open func startPreview() {
-        objc_sync_enter(self)
         print("startPreview")
-        captureSession.startRunning()
-        objc_sync_exit(self)
+        addSyncLock { 
+            self.captureQueue.async {
+                self.captureSession.startRunning()
+            }
+        }
     }
     
     ///停止预览
     open func stopPreview() {
         print("stopPreview")
-        captureSession.stopRunning()
+        addSyncLock { 
+            self.captureSession.stopRunning()
+        }
+        
     }
     
     ///开始录制
@@ -182,40 +253,21 @@ extension LJVideoRecorderManager {
     
     /// 切换前后摄像头
     open func switchCameraPostion() {
-        print("switchCameraPostion")
-//        objc_sync_enter(self)
-        DispatchQueue.global().async { [weak self] in
-            self?.switchCamera()
+        addSyncLock { 
+            self.captureQueue.async { [weak self] in
+                self?.switchCamera()
+            }
+            self.addAnimationForCameraSwitch()
         }
-        
-        let animation = CABasicAnimation(keyPath: "transform.rotation.y")
-        animation.toValue = Double.pi
-        animation.duration = 0.9
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = kCAFillModeForwards
-        previewLayer?.add(animation, forKey: nil)
     }
     
-    fileprivate func switchCamera() {
-        objc_sync_enter(self)
-        captureSession.stopRunning()
-        captureSession.removeInput(videoDeviceInput!)
-        isCameraPositonBack = !isCameraPositonBack
-        if isCameraPositonBack {
-            addBackCameraDeviceInput()
-        } else {
-            addFrontCameraDeviceInput()
-        }
-        captureSession.startRunning()
-        objc_sync_exit(self)
-    }
-    
-    /// 切换相机手电筒状态
+    /// 切换相机手电筒状态 - open
     open func switchTorchState() {
-        print("switchTorchState")
+        addSyncLock { 
+            self.captureQueue.async { [weak self] in
+                self?.changeToruchState()
+            }
+        }
     }
-    
-    
     
 }

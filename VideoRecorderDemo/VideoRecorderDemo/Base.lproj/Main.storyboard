@@ -35,12 +35,21 @@
                                     <action selector="cameraButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Jj-be-vXe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNh-a0-e4F">
+                                <rect key="frame" x="268" y="380" width="77" height="30"/>
+                                <state key="normal" title="切换手电筒"/>
+                                <connections>
+                                    <action selector="torchButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ztV-bL-4bJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="veI-9z-ndV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="Oxd-Ph-zdy"/>
+                            <constraint firstAttribute="trailing" secondItem="WNh-a0-e4F" secondAttribute="trailing" constant="30" id="Qda-EB-ZL8"/>
                             <constraint firstItem="kFu-Tz-Xz2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="e6e-kg-DLt"/>
                             <constraint firstAttribute="trailing" secondItem="kFu-Tz-Xz2" secondAttribute="trailing" constant="15" id="kMO-ps-Qo1"/>
+                            <constraint firstItem="WNh-a0-e4F" firstAttribute="top" secondItem="kFu-Tz-Xz2" secondAttribute="bottom" constant="30" id="mgb-Sw-cJm"/>
                             <constraint firstItem="kFu-Tz-Xz2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="qFl-sl-Vse"/>
                             <constraint firstItem="veI-9z-ndV" firstAttribute="top" secondItem="kFu-Tz-Xz2" secondAttribute="bottom" constant="30" id="tII-lb-rFK"/>
                         </constraints>
