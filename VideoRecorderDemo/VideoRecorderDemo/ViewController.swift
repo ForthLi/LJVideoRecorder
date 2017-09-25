@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
 class ViewController: UIViewController {
     @IBOutlet weak var videoPreview: UIView!
 
-    fileprivate var recorder: LJVideoRecorder?
+    fileprivate var recordManager: LJVideoRecorderManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         view.backgroundColor = UIColor.white
-        recorder = LJVideoRecorder()
-//        recorder?.preView = videoPreview
+        recordManager = LJVideoRecorderManager()
+        recordManager?.preview = videoPreview
+        videoPreview.backgroundColor = UIColor.black
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +27,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func cameraButtonClicked(_ sender: UIButton) {
+        recordManager?.switchCameraPostion()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        recordManager?.startPreview()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        recordManager?.stopPreview()
+    }
 
 }
 
+
+extension ViewController {
+}

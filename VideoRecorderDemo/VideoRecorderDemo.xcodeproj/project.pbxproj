@@ -14,7 +14,7 @@
 		75453EA51F75F4B40082A798 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75453EA31F75F4B40082A798 /* LaunchScreen.storyboard */; };
 		75453EB01F75F4B40082A798 /* VideoRecorderDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75453EAF1F75F4B40082A798 /* VideoRecorderDemoTests.swift */; };
 		75453EBB1F75F4B40082A798 /* VideoRecorderDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75453EBA1F75F4B40082A798 /* VideoRecorderDemoUITests.swift */; };
-		75453ECA1F75F5DF0082A798 /* LJVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75453EC91F75F5DF0082A798 /* LJVideoRecorder.swift */; };
+		75A7C2C81F7748C50070DAE8 /* LJVideoRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A7C2C71F7748C50070DAE8 /* LJVideoRecorderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		75453EB61F75F4B40082A798 /* VideoRecorderDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoRecorderDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75453EBA1F75F4B40082A798 /* VideoRecorderDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecorderDemoUITests.swift; sourceTree = "<group>"; };
 		75453EBC1F75F4B40082A798 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		75453EC91F75F5DF0082A798 /* LJVideoRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJVideoRecorder.swift; sourceTree = "<group>"; };
+		75A7C2C71F7748C50070DAE8 /* LJVideoRecorderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJVideoRecorderManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +131,7 @@
 		75453EC81F75F53E0082A798 /* LJVideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				75453EC91F75F5DF0082A798 /* LJVideoRecorder.swift */,
+				75A7C2C71F7748C50070DAE8 /* LJVideoRecorderManager.swift */,
 			);
 			path = LJVideoRecorder;
 			sourceTree = "<group>";
@@ -274,8 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				75453E9D1F75F4B40082A798 /* ViewController.swift in Sources */,
+				75A7C2C81F7748C50070DAE8 /* LJVideoRecorderManager.swift in Sources */,
 				75453E9B1F75F4B40082A798 /* AppDelegate.swift in Sources */,
-				75453ECA1F75F5DF0082A798 /* LJVideoRecorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +530,7 @@
 				75453EC11F75F4B40082A798 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75453EC21F75F4B40082A798 /* Build configuration list for PBXNativeTarget "VideoRecorderDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +539,7 @@
 				75453EC41F75F4B40082A798 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75453EC51F75F4B40082A798 /* Build configuration list for PBXNativeTarget "VideoRecorderDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -546,6 +548,7 @@
 				75453EC71F75F4B40082A798 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
