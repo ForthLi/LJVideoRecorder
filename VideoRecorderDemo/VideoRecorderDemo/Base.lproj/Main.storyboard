@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,19 +43,51 @@
                                     <action selector="torchButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ztV-bL-4bJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mg0-q2-fyE">
+                                <rect key="frame" x="156.5" y="380" width="62" height="30"/>
+                                <state key="normal" title="开始录制"/>
+                                <state key="selected" title="暂停录制">
+                                    <color key="titleColor" red="1" green="0.38940524230000001" blue="0.36044653250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E1s-1F-FV8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIz-6w-63c">
+                                <rect key="frame" x="156.5" y="445" width="62" height="30"/>
+                                <state key="normal" title="完成录制"/>
+                                <state key="disabled" title="完成录制">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="completionButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RbD-7P-ykl"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mbd-DR-xyq">
+                                <rect key="frame" x="16" y="353" width="343" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="mg0-q2-fyE" firstAttribute="centerY" secondItem="veI-9z-ndV" secondAttribute="centerY" id="21m-OP-FHA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Mbd-DR-xyq" secondAttribute="trailing" id="Hkf-To-KNI"/>
+                            <constraint firstItem="Mbd-DR-xyq" firstAttribute="top" secondItem="kFu-Tz-Xz2" secondAttribute="bottom" constant="3" id="Mih-sB-qoz"/>
+                            <constraint firstItem="mg0-q2-fyE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OfR-3S-GYm"/>
                             <constraint firstItem="veI-9z-ndV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="Oxd-Ph-zdy"/>
+                            <constraint firstItem="FIz-6w-63c" firstAttribute="top" secondItem="mg0-q2-fyE" secondAttribute="bottom" constant="35" id="PfC-w3-Fnx"/>
                             <constraint firstAttribute="trailing" secondItem="WNh-a0-e4F" secondAttribute="trailing" constant="30" id="Qda-EB-ZL8"/>
+                            <constraint firstItem="Mbd-DR-xyq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Qwl-Oi-Rgc"/>
                             <constraint firstItem="kFu-Tz-Xz2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="e6e-kg-DLt"/>
                             <constraint firstAttribute="trailing" secondItem="kFu-Tz-Xz2" secondAttribute="trailing" constant="15" id="kMO-ps-Qo1"/>
                             <constraint firstItem="WNh-a0-e4F" firstAttribute="top" secondItem="kFu-Tz-Xz2" secondAttribute="bottom" constant="30" id="mgb-Sw-cJm"/>
                             <constraint firstItem="kFu-Tz-Xz2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="qFl-sl-Vse"/>
                             <constraint firstItem="veI-9z-ndV" firstAttribute="top" secondItem="kFu-Tz-Xz2" secondAttribute="bottom" constant="30" id="tII-lb-rFK"/>
+                            <constraint firstItem="FIz-6w-63c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vtp-St-iUr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="completionButton" destination="FIz-6w-63c" id="ANP-CN-qL7"/>
+                        <outlet property="progressView" destination="Mbd-DR-xyq" id="CZh-w7-OBi"/>
                         <outlet property="videoPreview" destination="kFu-Tz-Xz2" id="tfq-xS-JDX"/>
                     </connections>
                 </viewController>

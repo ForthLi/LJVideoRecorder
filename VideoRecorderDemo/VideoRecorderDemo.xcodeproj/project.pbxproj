@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7506C3891F79EDAA00B26610 /* LJVideoRecordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7506C3881F79EDAA00B26610 /* LJVideoRecordEncoder.swift */; };
 		75453E9B1F75F4B40082A798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75453E9A1F75F4B40082A798 /* AppDelegate.swift */; };
 		75453E9D1F75F4B40082A798 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75453E9C1F75F4B40082A798 /* ViewController.swift */; };
 		75453EA01F75F4B40082A798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75453E9E1F75F4B40082A798 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7506C3881F79EDAA00B26610 /* LJVideoRecordEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJVideoRecordEncoder.swift; sourceTree = "<group>"; };
 		75453E971F75F4B40082A798 /* VideoRecorderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75453E9A1F75F4B40082A798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75453E9C1F75F4B40082A798 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				75A7C2C71F7748C50070DAE8 /* LJVideoRecorderManager.swift */,
+				7506C3881F79EDAA00B26610 /* LJVideoRecordEncoder.swift */,
 			);
 			path = LJVideoRecorder;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75453E9D1F75F4B40082A798 /* ViewController.swift in Sources */,
+				7506C3891F79EDAA00B26610 /* LJVideoRecordEncoder.swift in Sources */,
 				75A7C2C81F7748C50070DAE8 /* LJVideoRecorderManager.swift in Sources */,
 				75453E9B1F75F4B40082A798 /* AppDelegate.swift in Sources */,
 			);
