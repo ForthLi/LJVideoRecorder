@@ -523,8 +523,23 @@ extension LJVideoRecorderManager: AVCaptureVideoDataOutputSampleBufferDelegate, 
             return
         }
     }
-    
+    /**
+     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+     CIImage *sourceImage = [CIImage imageWithCVPixelBuffer:(CVPixelBufferRef)imageBuffer options:nil];
+     CGRect sourceExtent = sourceImage.extent;
+     
+     CIFilter * vignetteFilter = [CIFilter filterWithName:@"CIVignetteEffect"];
+     [vignetteFilter setValue:sourceImage forKey:kCIInputImageKey];
+     [vignetteFilter setValue:[CIVector vectorWithX:sourceExtent.size.width/2 Y:sourceExtent.size.height/2] forKey:kCIInputCenterKey];
+     [vignetteFilter setValue:@(sourceExtent.size.width/2) forKey:kCIInputRadiusKey];
+     CIImage *filteredImage = [vignetteFilter outputImage];
+     
+     CIFilter *effectFilter = [CIFilter filterWithName:@"CIPhotoEffectInstant"];
+     [effectFilter setValue:filteredImage forKey:kCIInputImageKey];
+     filteredImage = [effectFilter outputImage];
+     */
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        
         addSyncLock { 
             if self.audioSampleRate == 0 || self.audioChannels == 0 { // 获取 音频采样率 和 轨道
                 let sampleDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
@@ -532,6 +547,22 @@ extension LJVideoRecorderManager: AVCaptureVideoDataOutputSampleBufferDelegate, 
                 self.audioSampleRate = asbd?.mSampleRate ?? 0
                 self.audioChannels = asbd?.mChannelsPerFrame ?? 0
             }
+            
+            //添加滤镜
+            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+                let sourceImage = CIImage(cvPixelBuffer: imageBuffer, options: nil)
+//                let sourceImage = CIImage(cvImageBuffer: imageBuffer, options: nil)
+                let sourceExtent = sourceImage.extent
+                let vignetteFilter = CIFilter(name: "CIVignetteEffect")
+                vignetteFilter?.setValue(sourceImage, forKey: kCIInputImageKey)
+                vignetteFilter?.setValue(CIVector(x: sourceExtent.width / 2, y: sourceExtent.height / 2), forKey: "kCIInputCenterKey")
+                vignetteFilter?.setValue(sourceExtent.width / 2, forKey: kCIInputRadiusKey)
+                var filteredImage = vignetteFilter?.outputImage
+                let effectFilter = CIFilter(name: "CIPhotoEffectInstant")
+                effectFilter?.setValue(filteredImage, forKey: kCIInputImageKey)
+                filteredImage = effectFilter?.outputImage
+            }
+            
             
             guard self.isRecording,
                 let videoRecordEncoder = self.videoRecordEncoder else {
